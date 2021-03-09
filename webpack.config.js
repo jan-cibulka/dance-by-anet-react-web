@@ -1,5 +1,12 @@
 const path = require("path");
 const webpack = require("webpack");
+const Dotenv = require("dotenv-webpack");
+
+console.log("START");
+console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === "development") {
+  console.log("Welcome to development");
+}
 
 module.exports = {
   mode: "development",
@@ -42,11 +49,16 @@ module.exports = {
     new webpack.DefinePlugin({
       __DEV__: true,
     }),
+
+    new Dotenv({
+     path: '.env.' + process.env.NODE_ENV
+      //path: ".env.development",
+    }),
   ],
   devServer: {
     contentBase: path.resolve(__dirname, "public"),
     liveReload: true,
-    port: 9000,
+    port: 8000,
     historyApiFallback: true,
     writeToDisk: true,
   },

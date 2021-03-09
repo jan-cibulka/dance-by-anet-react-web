@@ -1,11 +1,8 @@
 {
-  "name": "beginning",
-  "version": "0.6.8",
+  "name": "dance-by-anet-web",
+  "version": "1.0.0",
   "description": "A small startup repo for your JavaScript project. Webpack. TypeScript. React. Eslint. Styled-components.",
-  "main": "./setup.js",
-  "bin": {
-    "beginning": "./setup.js"
-  },
+  "author": "Jan Cibulka",
   "dependencies": {
     "@types/react": "16.9.19",
     "@types/react-dom": "16.9.5",
@@ -15,6 +12,7 @@
     "@typescript-eslint/parser": "2.19.2",
     "bootstrap": "^4.6.0",
     "css-loader": "^5.1.1",
+    "dotenv-webpack": "6.0.4",
     "prop-types": "15.7.2",
     "react": "16.8.6",
     "react-bootstrap": "^1.5.1",
@@ -95,23 +93,7 @@
   },
   "scripts": {
     "watch": "webpack --config ./webpack.config.js --mode development",
-    "dev": "webpack-dev-server",
+    "dev": "set NODE_ENV=development&& webpack-dev-server",
     "build": "webpack --config ./webpack.prod.js --mode production"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/krasimir/beginning.git"
-  },
-  "keywords": [
-    "startup",
-    "webpack",
-    "typescript",
-    "react",
-    "styled-components",
-    "eslint",
-    "prettier",
-    "setup"
-  ],
-  "author": "Krasimir Tsonev",
-  "license": "MIT"
+  }
 }

@@ -1,5 +1,6 @@
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: ['./src/index.tsx'],
@@ -39,6 +40,7 @@ module.exports = {
     minimizer: [new TerserPlugin()],
   },
   plugins: [
+    new Dotenv(),
     new webpack.DefinePlugin({
       __DEV__: true,
     }),
