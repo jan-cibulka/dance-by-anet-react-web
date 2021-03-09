@@ -14,6 +14,7 @@ export class CustomNavbar extends React.Component {
             <Link className="nav-link" to="/schedule">Rozvrh</Link>
             <Link className="nav-link" to="/instructor">Trenér</Link>
             <Link className="nav-link" to="/contact">Kontakt</Link>
+            <Link className="nav-link" to="/video">Video</Link>
 
 {/*  {!isAuthenticated() ? <React.Fragment>
               <Link className="nav-link" to="/account">Přihlášení</Link>
