@@ -1,0 +1,139 @@
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    font: 112.5%/1.45em georgia, serif, sans-serif;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+#container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: hsla(0, 0%, 0%, 0.8);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: normal;
+    word-wrap: break-word;
+    font-kerning: normal;
+    font-display: fallback;
+    -moz-font-feature-settings: "kern", "liga", "clig", "calt";
+    -ms-font-feature-settings: "kern", "liga", "clig", "calt";
+    -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
+    font-feature-settings: "kern", "liga", "clig", "calt";
+}
+
+.navbar {
+    padding: 0px;
+    height: calc(5%);
+}
+
+
+header {
+    background: rgb(185, 185, 185);
+    padding: 1em;
+    height: calc(10%)
+}
+
+
+/* male obrazovky*/
+
+@media screen and (max-width: 650px) {
+    .headerTitle {
+        font-size: 20px;
+    }
+    .content-wrapper {
+        background-size: auto 100%;
+    }
+    .textBox {
+        width: 100%;
+    }
+    .map-iframe {
+        width: 200px;
+        height: 150px;
+    }
+}
+
+
+/* velke obrazovky*/
+
+@media screen and (min-width: 650px) {
+    .headerTitle {
+        font-size: 48px;
+    }
+    .textBox {
+        letter-spacing: 2px;
+        width: 80%;
+    }
+    .map-iframe {
+        width: 400px;
+        height: 300px;
+    }
+    .content-wrapper {
+        background-size: 100% auto;
+        background-position: 0 100px;
+    }
+}
+
+.content-wrapper {
+    height: 100%;
+    width:100%;
+    flex: 1;
+    overflow: auto;
+    background-color: #343a40;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+}
+
+.textBox {
+    background: rgba(255, 255, 255, 0.7);
+    position: relative;
+    top: calc(10%);
+    margin: auto;
+    padding: 20px;
+    overflow: auto
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(255, 0, 102);
+    padding-left: 2em;
+    padding-right: 2em;
+    font-size: 24px;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: rgb(255, 0, 102);
+    text-decoration-line: overline underline;
+}
+
+
+.table td,
+.table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #343a40;
+    border-right: 1px solid #343a40;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #343a40;
+    border-right: 2px solid #343a40;
+}
+
+.schedule-highlight {
+    background: rgb(255, 0, 102, 0.5)
+}
+
+.fb-ig-icons {
+    right: 5%;
+    top: 10px;
+    position: absolute;
+}
