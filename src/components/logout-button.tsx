@@ -6,8 +6,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 const LogoutButton = () => {
   const { logout } = useAuth0();
   return (
-    <button
-      className="nav-link"
+    <a
+      className="nav-link "
+      style={{cursor: "pointer"}}
       onClick={() =>
         logout({
           returnTo: window.location.origin,
@@ -15,7 +16,7 @@ const LogoutButton = () => {
       }
     >
       Odhlášení
-    </button>
+    </a>
   );
 };
 

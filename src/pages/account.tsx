@@ -6,9 +6,14 @@ export const Account = () => {
  
   const auth = useAuth0();
   if(auth.isAuthenticated){
+
+    console.log(auth.user);
     return <div className="textBox">
-    asd
-   
+    Účet {auth.user.nickname ? <>{auth.user.nickname}</>: <>{auth.user.name}</>} 
+    <br />
+    Email {auth.user.email}
+    <br />
+     
      </div>
 
   }
