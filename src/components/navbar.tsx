@@ -1,6 +1,8 @@
 import React from "react"
 import { Button, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import LoginButton from "./login-button";
+import SignupButton from "./signup-button";
 //import { isAuthenticated, logout } from "../utils/auth";
 export class CustomNavbar extends React.Component {
 
@@ -15,7 +17,8 @@ export class CustomNavbar extends React.Component {
             <Link className="nav-link" to="/instructor">Trenér</Link>
             <Link className="nav-link" to="/contact">Kontakt</Link>
             <Link className="nav-link" to="/video">Video</Link>
-
+            <LoginButton />
+            <SignupButton />
 {/*  {!isAuthenticated() ? <React.Fragment>
               <Link className="nav-link" to="/account">Přihlášení</Link>
             </React.Fragment>
