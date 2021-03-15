@@ -5,25 +5,29 @@ import Contact from '../pages/contact';
 import Instructor from '../pages/instructor';
 import { Schedule } from '../pages/schedule';
 import Video from '../pages/video';
-import Auth0ProviderWithHistory from '../auth/auth0-provider-with-history';
 import Layout from './layout';
+import { useAuth0 } from '@auth0/auth0-react';
+import { Account } from '../pages/account';
 
 interface AppProps {
 
 }
 
-export default function App({ }: AppProps) {
+export const App = () => {
+  const { isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <>Ověřování</>
+  }
+
   return (
-    <BrowserRouter >
-      <Auth0ProviderWithHistory>
         <Layout >
           <Route path='/' exact component={Index} />
           <Route path='/instructor' component={Instructor} />
           <Route path='/schedule' component={Schedule} />
           <Route path='/contact' component={Contact} />
           <Route path='/video' component={Video} />
+          <Route path='/account' component={Account} />
         </Layout>
-      </Auth0ProviderWithHistory>
-    </BrowserRouter>
   )
 }

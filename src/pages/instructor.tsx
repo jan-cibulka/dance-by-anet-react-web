@@ -1,7 +1,10 @@
+import { withAuth0 } from "@auth0/auth0-react";
 import React from "react"
 import aneta from "../images/aneta.jpg"
-export class Instructor extends React.Component {
+
+export class Instructor extends React.Component<{auth0: any}> {
   render(): JSX.Element {
+    //console.log(this.props.auth0);
     return (
 
       <div className="textBox">
@@ -18,4 +21,4 @@ export class Instructor extends React.Component {
   }
 }
 
-export default Instructor
+export default withAuth0(Instructor)

@@ -11,7 +11,7 @@ const AuthenticationButton = () => {
 
 
     const { isAuthenticated, user } = useAuth0();
-    console.log(user)
+    //console.log(user)
     return isAuthenticated ? <LogoutButton /> : <LoginButton />;
 };
 

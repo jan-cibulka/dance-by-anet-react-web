@@ -7,14 +7,14 @@ const LogoutButton = () => {
   const { logout } = useAuth0();
   return (
     <button
-      className="btn btn-danger btn-block"
+      className="nav-link"
       onClick={() =>
         logout({
           returnTo: window.location.origin,
         })
       }
     >
-      Log Out
+      Odhlášení
     </button>
   );
 };

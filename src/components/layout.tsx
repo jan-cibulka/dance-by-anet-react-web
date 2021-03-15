@@ -33,7 +33,7 @@ export class Layout extends React.Component<{}, LayoutState> {
 
 
     this.state = { shouldBeWideBackground: true };
-    console.log(this.state);
+    //console.log(this.state);
      this.updateBackgroundImage = this.updateBackgroundImage.bind(this);
   }
 

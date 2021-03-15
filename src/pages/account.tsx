@@ -1,35 +1,20 @@
-export {}
-/*
 import React from "react"
-import { Router } from "@reach/router"
-import { login, logout, isAuthenticated, getProfile } from "../utils/auth"
-import { Link } from "gatsby"
-import Layout from "../components/layout"
-import Video from "./video"
+import { useAuth0 } from "@auth0/auth0-react"
+import { addEmitHelper } from "typescript";
 
-const UserAccount = ({ user }) => {
+export const Account = () => {
+ 
+  const auth = useAuth0();
+  if(auth.isAuthenticated){
+    return <div className="textBox">
+    asd
+   
+     </div>
 
-  return   <div className="textBox"><p>Ahoj, {user.name ? user.name : "friend"}! Zde je přehled vašeho účtu.</p></div>
-
-}
-
-const Account = () => {
-  if (!isAuthenticated()) {
-    login()
-    return <p>Redirecting to login...</p>
   }
-
-  const user = getProfile()
-
-  return (
-    <Layout>
-      <Router className="h-100">
-        <UserAccount path="/account/" user={user} />
-        <Video path="/account/video" user={user} />
-      </Router>
-    </Layout>
-  )
+  const { loginWithRedirect } = useAuth0();
+  loginWithRedirect();
+  return <div></div>;
+ 
+  
 }
-
-export default Account
-*/
