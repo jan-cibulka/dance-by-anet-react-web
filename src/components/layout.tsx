@@ -9,7 +9,7 @@ import PropTypes from "prop-types"
 
 
 import Header from "./header"
-import CustomNavbar from "./navbar";
+import {CustomNavbar} from "./navbar";
 
 
 
