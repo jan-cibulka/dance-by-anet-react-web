@@ -4,7 +4,7 @@ import aneta from "../images/aneta.jpg"
 
 export class Instructor extends React.Component<{auth0: any}> {
   render(): JSX.Element {
-    //console.log(this.props.auth0);
+    console.log(this.props.auth0);
     return (
 
       <div className="textBox">

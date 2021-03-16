@@ -7,7 +7,7 @@ import { Schedule } from '../pages/schedule';
 import Video from '../pages/video';
 import Layout from './layout';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Account } from '../pages/account';
+import  Account  from '../pages/account';
 
 interface AppProps {
 
