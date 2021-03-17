@@ -34,26 +34,38 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
 
 
     render(): JSX.Element {
-        var textBoxContent = <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+        var textBoxContent = <Tab.Container id="left-tabs-example" defaultActiveKey={"default"}>
             <Row>
                 <Col sm={3}>
                     <Nav variant="pills" className="flex-column">
-                        <Nav.Item>
-                            <Nav.Link eventKey="first">Lekce 1</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link eventKey="second">Lekce 2</Nav.Link>
-                        </Nav.Item>
+                        {this.state.lectures.map((lecture, i) => {
+                            return (
+                                <Nav.Item>
+                                    <Nav.Link eventKey={lecture.name + i} key={lecture.name + i}>{lecture.name}</Nav.Link>
+                                </Nav.Item>
+                            )
+                        })}
                     </Nav>
                 </Col>
                 <Col sm={9}>
                     <Tab.Content>
-                        <Tab.Pane eventKey="first">
-                            lekce 1
-                </Tab.Pane>
-                        <Tab.Pane eventKey="second">
-                            {this.state.lectures.length}
-                </Tab.Pane>
+                        <Tab.Pane eventKey={"default"}>
+                            Vyberte lekci
+                            </Tab.Pane>
+                        {this.state.lectures.map((lecture, i) => {
+                            return (
+                                <Tab.Pane eventKey={lecture.name + i} key={lecture.name + i}>
+                                    Název lekce: <b>{lecture.name}</b>
+                                    <br/>
+                                    Popis: {lecture.description}
+                                    <br/>
+                                    Kapacita lekce: {lecture.recommendedParticipans}
+                                    <br/> 
+                                    Registrovaných účastníků: {lecture.registeredParticipans.length}                                   
+                                    <br/>
+                                </Tab.Pane>
+                            )
+                        })}
                     </Tab.Content>
                 </Col>
             </Row>
