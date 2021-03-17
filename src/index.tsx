@@ -5,7 +5,6 @@ import { App } from './components/App';
 import 'bootstrap/dist/css/bootstrap.css';
 import "./components/layout.css"
 import { BrowserRouter } from 'react-router-dom';
-import Auth0ProviderWithHistory from './auth/auth0-provider-with-history';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 

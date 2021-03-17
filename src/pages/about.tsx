@@ -1,6 +1,6 @@
 import React from "react"
 
-export class Index extends React.Component {
+export class About extends React.Component {
   render(): JSX.Element {
     return (   
         <div className="textBox">
@@ -15,4 +15,4 @@ export class Index extends React.Component {
   }
 }
 
-export default Index;
+export default About;

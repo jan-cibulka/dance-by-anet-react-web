@@ -103,9 +103,9 @@ header {
 
 .navbar-light .navbar-nav .nav-link {
     color: rgb(255, 0, 102);
-    padding-left: 2em;
-    padding-right: 2em;
-    font-size: 24px;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 20px;
 }
 
 .navbar-light .navbar-nav .nav-link:hover {

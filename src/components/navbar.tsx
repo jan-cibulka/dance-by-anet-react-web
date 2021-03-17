@@ -20,6 +20,7 @@ export const CustomNavbar = () => {
          {isAuthenticated ?
           <React.Fragment>
             <Link className="nav-link" to="/account">Účet</Link>
+            <Link className="nav-link" to="/lecturesroster">Lekce</Link>
           </React.Fragment > :
           <React.Fragment></React.Fragment>
          }
