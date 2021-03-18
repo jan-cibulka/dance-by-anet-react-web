@@ -3,11 +3,12 @@ import { initialAuthState } from "@auth0/auth0-react/dist/auth-state";
 import React from "react"
 import { Button, Col, Form, ListGroup, Nav, Row, Spinner, Tab } from "react-bootstrap";
 import { Lecture } from "../model/lecture";
-import { GetAllLectures } from "../util/lectureHelper";
+import { GetAllLectures, AddLecture } from "../util/lectureHelper";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import lecturesRoster from "./lectures-roster";
+import moment from "moment";
 
 export interface LectureAdminState {
     loading: boolean,
@@ -34,27 +35,36 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
 
     async initLectures() {
         var lectures = await GetAllLectures()
+        if (lectures.length == 0) {
+            lectures.push({ name: "Nová lekce", description: "Popis nové lekce", recommendedParticipans: 10, start: new Date().getTime(), registeredParticipans: [] });
+
+        }
         this.setState({ lectures: lectures, loading: false })
     }
 
-    submitForm = (event: any) => {
+    async submitForm(event: any) {
         event.preventDefault();
-
-
 
         var name = event.target[0].value;
         var description = event.target[1].value;
         var recommendedParticipans = event.target[2].value;
-        var date = event.target[3].value;
+    
         var lecture: Lecture = {
             description: description,
             name: name,
             recommendedParticipans: recommendedParticipans,
             registeredParticipans: [],
-            start: date
+            start:moment(event.target[3].value,"DD.MM.YYYY HH:mm").toDate().getTime()
         };
 
         console.log(lecture);
+        await AddLecture(lecture);
+
+    }
+
+    
+    async removeLecture(index: number) {
+      console.log("remove", index);
     }
 
 
@@ -77,7 +87,7 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
                         <Tab.Pane eventKey={"default"}>
                             Vyberte lekci
                             </Tab.Pane>
-                        {this.state.lectures.map((lecture, i) => {                         
+                        {this.state.lectures.map((lecture, i) => {
                             return (
                                 <Tab.Pane eventKey={lecture.name + i} key={lecture.name + i}>
                                     <Form onSubmit={this.submitForm} >
@@ -95,25 +105,27 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
                                         </Form.Group>
                                         <Form.Group controlId="formLectureStart">
                                             <Form.Label>Začátek lekce</Form.Label>
-                                            <Form.Control dateFormat={"dd.MM.yyyy HH:mm"} showTimeSelect timeIntervals={5} timeCaption="Od" disabled={false} timeFormat={"HH:mm "} as={DatePicker} selected={lecture.start ? new Date(parseInt(lecture.start)) : new Date()} onChange={(evt: any) => {
-                                                var newDate = new Date(evt).getTime().toString();                                           
+                                            <Form.Control dateFormat={"dd.MM.yyyy HH:mm"} showTimeSelect timeIntervals={5} timeCaption="Od" disabled={false} timeFormat={"HH:mm "} as={DatePicker} selected={lecture.start ? new Date(lecture.start) : new Date()} onChange={(evt: any) => {
+                                                var newDate = new Date(evt).getTime();
                                                 var newLectures = [...this.state.lectures]
-                                                newLectures[i].start = newDate;                                               
+                                                newLectures[i].start = newDate;
                                                 this.setState({ lectures: newLectures })
-                                        
+
                                             }} />
                                         </Form.Group>
                                         <Form.Group controlId="formLectureDescription">
                                             <Form.Label>Seznam přihlášených lidí</Form.Label>
                                             <ListGroup>
-                                                <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                                                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                                                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                                                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                                                <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                                                {lecture.registeredParticipans.map((person) => {
+                                                    return <ListGroup.Item>{person}</ListGroup.Item>
+                                                })}
                                             </ListGroup>
                                         </Form.Group>
-                                        <Button type="submit" >letsgo</Button>
+                                        <Button type="submit" >Přidat nebo přepsat</Button>
+                                        <Button variant="danger" onClick={()=> {
+                                            this.removeLecture(i);
+
+                                        }}>Odebrat</Button>
                                     </Form>
                                 </Tab.Pane>
                             )
@@ -127,7 +139,7 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
         if (this.state.loading) { textBoxContent = <Spinner animation={"border"}></Spinner> }
 
         return (
-            <div className="textBox">
+            <div className="textBox" style={{ minHeight: "80%" }}>
                 <p><b>Seznam lekcí</b></p>
                 {textBoxContent}
             </div>

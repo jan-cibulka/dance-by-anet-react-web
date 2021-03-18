@@ -3,5 +3,5 @@ export interface Lecture {
     registeredParticipans: string[];
     name: string;
     description: string;
-    start: string
+    start: number
 }

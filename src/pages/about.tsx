@@ -11,9 +11,7 @@ export class About extends React.Component {
           </p>
           <p>Vše, co děláme, děláme pro vás s láskou k tanci a pohybu, proto se budeme těšit na každého, kdo k nám zavítá. Naším hlavním cílem je, aby každý odcházel z hodin spokojený, příjemně vyčerpaný a odreagovaný.
           </p>
-          <p style={{ textAlign: "right" }}>Vaše Aneta Mašátová</p>     
-          <Button onClick={AddLecture}>Pridat lekci</Button>
-          <Button onClick={GetAllLectures}>Ziskej lekce</Button>
+          <p style={{ textAlign: "right" }}>Vaše Aneta Mašátová</p>            
              </div>    
           
     )
