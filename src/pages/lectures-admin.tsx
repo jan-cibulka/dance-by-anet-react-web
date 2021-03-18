@@ -4,7 +4,10 @@ import React from "react"
 import { Button, Col, Form, ListGroup, Nav, Row, Spinner, Tab } from "react-bootstrap";
 import { Lecture } from "../model/lecture";
 import { GetAllLectures } from "../util/lectureHelper";
+import DatePicker from "react-datepicker";
 
+import "react-datepicker/dist/react-datepicker.css";
+import lecturesRoster from "./lectures-roster";
 
 export interface LectureAdminState {
     loading: boolean,
@@ -74,7 +77,7 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
                         <Tab.Pane eventKey={"default"}>
                             Vyberte lekci
                             </Tab.Pane>
-                        {this.state.lectures.map((lecture, i) => {
+                        {this.state.lectures.map((lecture, i) => {                         
                             return (
                                 <Tab.Pane eventKey={lecture.name + i} key={lecture.name + i}>
                                     <Form onSubmit={this.submitForm} >
@@ -92,7 +95,13 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
                                         </Form.Group>
                                         <Form.Group controlId="formLectureStart">
                                             <Form.Label>Začátek lekce</Form.Label>
-                                            <Form.Control type="date" defaultValue={lecture.start} />
+                                            <Form.Control dateFormat={"dd.MM.yyyy HH:mm"} showTimeSelect timeIntervals={5} timeCaption="Od" disabled={false} timeFormat={"HH:mm "} as={DatePicker} selected={lecture.start ? new Date(parseInt(lecture.start)) : new Date()} onChange={(evt: any) => {
+                                                var newDate = new Date(evt).getTime().toString();                                           
+                                                var newLectures = [...this.state.lectures]
+                                                newLectures[i].start = newDate;                                               
+                                                this.setState({ lectures: newLectures })
+                                        
+                                            }} />
                                         </Form.Group>
                                         <Form.Group controlId="formLectureDescription">
                                             <Form.Label>Seznam přihlášených lidí</Form.Label>
