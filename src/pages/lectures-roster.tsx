@@ -27,8 +27,6 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
 
     async initLectures() {
         var lectures = await GetAllLectures()
-        console.log(lectures);
-
         this.setState({ lectures: lectures, loading: false })
     }
 
@@ -56,13 +54,13 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
                             return (
                                 <Tab.Pane eventKey={lecture.name + i} key={lecture.name + i}>
                                     Název lekce: <b>{lecture.name}</b>
-                                    <br/>
+                                    <br />
                                     Popis: {lecture.description}
-                                    <br/>
+                                    <br />
                                     Kapacita lekce: {lecture.recommendedParticipans}
-                                    <br/> 
-                                    Registrovaných účastníků: {lecture.registeredParticipans.length}                                   
-                                    <br/>
+                                    <br />
+                                    Registrovaných účastníků: {lecture.registeredParticipans.length}
+                                    <br />
                                 </Tab.Pane>
                             )
                         })}

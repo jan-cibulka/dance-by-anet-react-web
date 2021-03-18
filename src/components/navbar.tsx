@@ -18,11 +18,12 @@ export const CustomNavbar = () => {
           <Link className="nav-link" to="/video">Video</Link>
           <Link className="nav-link" to="/account">Účet</Link>
           <Link className="nav-link" to="/lecturesroster">Lekce</Link>
+          <Link className="nav-link" to="/lecturesadmin">Admin</Link>
          {isAuthenticated ?
           <React.Fragment>
-         
           </React.Fragment > :
-          <React.Fragment></React.Fragment>
+          <React.Fragment>          
+          </React.Fragment>
          }
 
 
