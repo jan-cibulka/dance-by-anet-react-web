@@ -2,6 +2,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require("path");
 
 console.log("START");
 console.log(process.env.NODE_ENV);
