@@ -1,7 +1,7 @@
 import { withAuth0 } from "@auth0/auth0-react";
 import { initialAuthState } from "@auth0/auth0-react/dist/auth-state";
 import React from "react"
-import { Col, Nav, Row, Spinner, Tab } from "react-bootstrap";
+import { Button, Col, Nav, Row, Spinner, Tab } from "react-bootstrap";
 import { Lecture } from "../model/lecture";
 import { GetAllLectures } from "../util/lectureHelper";
 
@@ -29,6 +29,12 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
         var lectures = await GetAllLectures()
         this.setState({ lectures: lectures, loading: false })
     }
+
+    async addToLecture() {
+        var lectures = await GetAllLectures()
+        this.setState({ lectures: lectures, loading: false })
+    }
+
 
 
     render(): JSX.Element {
@@ -61,6 +67,7 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
                                     <br />
                                     Registrovaných účastníků: {lecture.registeredParticipans.length}
                                     <br />
+                                    <Button onClick={this.addToLecture}>Zapsat se</Button>
                                 </Tab.Pane>
                             )
                         })}

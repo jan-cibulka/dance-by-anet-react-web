@@ -3,7 +3,7 @@ import { initialAuthState } from "@auth0/auth0-react/dist/auth-state";
 import React from "react"
 import { Button, Col, Form, ListGroup, Nav, Row, Spinner, Tab } from "react-bootstrap";
 import { Lecture } from "../model/lecture";
-import { GetAllLectures, AddLecture } from "../util/lectureHelper";
+import { GetAllLectures, AddLecture, DeleteLecture, GetLecture } from "../util/lectureHelper";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -48,23 +48,30 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
         var name = event.target[0].value;
         var description = event.target[1].value;
         var recommendedParticipans = event.target[2].value;
-    
+
         var lecture: Lecture = {
             description: description,
             name: name,
             recommendedParticipans: recommendedParticipans,
             registeredParticipans: [],
-            start:moment(event.target[3].value,"DD.MM.YYYY HH:mm").toDate().getTime()
+            start: moment(event.target[3].value, "DD.MM.YYYY HH:mm").toDate().getTime()
         };
 
         console.log(lecture);
-        await AddLecture(lecture);
 
+        // rewrite participants if somebody joined while editing
+        var newLecture = await GetLecture(lecture.name + ".json");
+        lecture.registeredParticipans = newLecture.registeredParticipans;
+
+        await AddLecture(lecture);
+        await this.initLectures();
     }
 
-    
+
     async removeLecture(index: number) {
-      console.log("remove", index);
+        console.log("remove", index);
+        await DeleteLecture(this.state.lectures[index].name + ".json");
+        await this.initLectures();
     }
 
 
@@ -122,7 +129,7 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
                                             </ListGroup>
                                         </Form.Group>
                                         <Button type="submit" >Přidat nebo přepsat</Button>
-                                        <Button variant="danger" onClick={()=> {
+                                        <Button variant="danger" onClick={() => {
                                             this.removeLecture(i);
 
                                         }}>Odebrat</Button>
