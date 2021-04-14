@@ -3,7 +3,13 @@ const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+console.log("START");
+console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === "production") {
+  console.log("Welcome to production");
+}
 module.exports = {
+  mode: "production",
   entry: ['./src/index.tsx'],
   module: {
     rules: [
@@ -41,13 +47,28 @@ module.exports = {
     minimizer: [new TerserPlugin()],
   },
   plugins: [
-    new Dotenv({
-      path: '.env.' + process.env.NODE_ENV
-       //path: ".env.development",
-     }),
-     new HtmlWebpackPlugin({template: "./src/index.tsx"}),
     new webpack.DefinePlugin({
-      __DEV__: true,
+      __DEV__: false,
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: path.resolve(__dirname, 'src', 'index.html'),
+    
+      inject: 'body',
+      //favicon: path.resolve(__dirname, 'assets', 'fanicons', 'fanicon.png'),
+      minify: {
+          minifyCSS: true,
+          minifyJS: true,
+          collapseWhitespace: true,
+          collapseInlineTagWhitespace: true,
+          preserveLineBreaks: false,
+          removeAttributeQuotes: true,
+          removeComments: true
+      }
+  }),
+    new Dotenv({
+     path: '.env.' + process.env.NODE_ENV
+      //path: ".env.development",
     }),
   ],
 };

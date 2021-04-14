@@ -96,9 +96,7 @@
     "ts-loader": "6.2.1",
     "typescript": "3.7.5"
   },
-  "scripts": {
-    "watch": "webpack --config ./webpack.config.js --mode development",
-    "dev": "set NODE_ENV=development&& webpack-dev-server",
+  "scripts": { 
     "build": "NODE_ENV=development&& webpack --config ./webpack.prod.js ",
     "start": "set NODE_ENV=development&& webpack serve"
   }
