@@ -99,6 +99,6 @@
   "scripts": {
     "watch": "webpack --config ./webpack.config.js --mode development",
     "dev": "set NODE_ENV=development&& webpack-dev-server",
-    "build": "webpack --config ./webpack.prod.js --mode production"
+    "build": "set NODE_ENV=development&& webpack --config ./webpack.prod.js --mode development"
   }
 }

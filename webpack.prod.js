@@ -40,7 +40,10 @@ module.exports = {
     minimizer: [new TerserPlugin()],
   },
   plugins: [
-    new Dotenv(),
+    new Dotenv({
+      path: '.env.' + process.env.NODE_ENV
+       //path: ".env.development",
+     }),
     new webpack.DefinePlugin({
       __DEV__: true,
     }),
