@@ -1,6 +1,7 @@
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: ['./src/index.tsx'],
@@ -44,6 +45,7 @@ module.exports = {
       path: '.env.' + process.env.NODE_ENV
        //path: ".env.development",
      }),
+     new HtmlWebpackPlugin({template: "./src/index.tsx"}),
     new webpack.DefinePlugin({
       __DEV__: true,
     }),

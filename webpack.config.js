@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const Dotenv = require("dotenv-webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 console.log("START");
 console.log(process.env.NODE_ENV);
@@ -49,7 +50,22 @@ module.exports = {
     new webpack.DefinePlugin({
       __DEV__: true,
     }),
-
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: path.resolve(__dirname, 'src', 'index.html'),
+    
+      inject: 'body',
+      //favicon: path.resolve(__dirname, 'assets', 'fanicons', 'fanicon.png'),
+      minify: {
+          minifyCSS: true,
+          minifyJS: true,
+          collapseWhitespace: true,
+          collapseInlineTagWhitespace: true,
+          preserveLineBreaks: false,
+          removeAttributeQuotes: true,
+          removeComments: true
+      }
+  }),
     new Dotenv({
      path: '.env.' + process.env.NODE_ENV
       //path: ".env.development",

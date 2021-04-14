@@ -19,7 +19,7 @@ ReactDOM.render(<BrowserRouter >
     >
     <App />
     </Auth0Provider>
-    </BrowserRouter>, document.querySelector('#container'));
+    </BrowserRouter>, document.querySelector('#root'));
 
 if (module && module.hot) {
   module.hot.accept();
