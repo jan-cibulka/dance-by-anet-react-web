@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import lecturesRoster from "./lectures-roster";
 import moment from "moment";
 import { Redirect } from "react-router-dom";
+import { isUserAdmin } from "../util/userWhitelist";
 
 
 export interface LectureAdminState {
@@ -62,8 +63,11 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
         console.log(lecture);
 
         // rewrite participants if somebody joined while editing
-        // var newLecture = await GetLecture(lecture.name + ".json");
-        //lecture.registeredParticipans = newLecture.registeredParticipans;
+        var newLecture = await GetLecture(lecture.name + ".json");
+        if (newLecture != null) {
+            lecture.registeredParticipans = newLecture.registeredParticipans;
+        }
+
 
         await AddLecture(lecture);
         await this.initLectures();
@@ -71,7 +75,7 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
 
 
     async removeLecture(index: number) {
-        console.log("remove", index);
+        //console.log("remove", index);
         await DeleteLecture(this.state.lectures[index].name + ".json");
         await this.initLectures();
     }
@@ -147,7 +151,7 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
 
 
         if (this.state.loading) { textBoxContent = <Spinner animation={"border"}></Spinner> }
-        if (this.props.auth0.isAuthenticated) {
+        if (this.props.auth0.isAuthenticated && isUserAdmin(this.props.auth0.user.email)) {
             return (
                 <div className="textBox" style={{ minHeight: "80%" }}>
                     <p><b>Seznam lekcí</b></p>

@@ -1,10 +1,10 @@
-import { withAuth0 } from "@auth0/auth0-react";
+import { Auth0Provider, withAuth0 } from "@auth0/auth0-react";
 import { initialAuthState } from "@auth0/auth0-react/dist/auth-state";
 import React from "react"
 import { Button, Col, Nav, Row, Spinner, Tab } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { Lecture } from "../model/lecture";
-import { GetAllLectures } from "../util/lectureHelper";
+import { AddLecture, GetAllLectures, GetLecture } from "../util/lectureHelper";
 
 
 export interface LectureRosterState {
@@ -22,6 +22,7 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
         super(props);
 
         this.state = { lectures: [], loading: true }
+        this.addToLecture = this.addToLecture.bind(this);
         this.initLectures = this.initLectures.bind(this);
         this.initLectures();
     }
@@ -32,14 +33,33 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
         this.setState({ lectures: lectures, loading: false })
     }
 
-    async addToLecture() {
+    async addToLecture(index: number) {
         var lectures = await GetAllLectures()
         this.setState({ lectures: lectures, loading: false })
+
+        var targetLecture = lectures[index];
+        // rewrite participants if somebody joined while editing
+        var newLecture = await GetLecture(targetLecture.name + ".json");
+        if (newLecture != null) {
+            targetLecture.registeredParticipans = newLecture.registeredParticipans;
+        }
+
+        if(!targetLecture.registeredParticipans.some(x=> x==this.props.auth0.user.email)){
+            targetLecture.registeredParticipans.push(this.props.auth0.user.email)
+        }
+
+
+        await AddLecture(targetLecture);
+        await this.initLectures();
+
     }
 
 
 
     render(): JSX.Element {
+        
+
+
         var textBoxContent = <Tab.Container id="left-tabs-example" defaultActiveKey={"default"}>
             <Row>
                 <Col sm={3}>
@@ -59,6 +79,9 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
                             Vyberte lekci
                             </Tab.Pane>
                         {this.state.lectures.map((lecture, i) => {
+
+                                var amIInThisLecture = lecture.registeredParticipans.some(x=> x == this.props.auth0.user.email)
+
                             return (
                                 <Tab.Pane eventKey={lecture.name + i} key={lecture.name + i}>
                                     Název lekce: <b>{lecture.name}</b>
@@ -69,7 +92,8 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
                                     <br />
                                     Registrovaných účastníků: {lecture.registeredParticipans.length}
                                     <br />
-                                    <Button onClick={this.addToLecture}>Zapsat se</Button>
+                                    
+                                    <Button onClick={() => { this.addToLecture(i) }}>Zapsat se</Button>
                                 </Tab.Pane>
                             )
                         })}
