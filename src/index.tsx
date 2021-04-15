@@ -8,13 +8,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 
-const domain = process.env.AUTH0_DOMAIN;
-const clientId = process.env.AUTH0_CLIENTID;
+//const domain = process.env.AUTH0_DOMAIN;
+//const clientId = process.env.AUTH0_CLIENTID;
 
 ReactDOM.render(<BrowserRouter >
     <Auth0Provider
-      domain={domain!}
-      clientId={clientId!}
+      domain="dancebyanet.eu.auth0.com"
+      clientId="n9yBXTqzOeNBTJm907LyNAJaDD5s5Iy1"
       redirectUri={window.location.origin}
     >
     <App />
