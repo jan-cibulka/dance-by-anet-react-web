@@ -1,4 +1,4 @@
-import { withAuth0 } from "@auth0/auth0-react";
+import { Auth0Provider, withAuth0 } from "@auth0/auth0-react";
 import { initialAuthState } from "@auth0/auth0-react/dist/auth-state";
 import React from "react"
 import { Button, Col, Form, ListGroup, Nav, Row, Spinner, Tab } from "react-bootstrap";
@@ -9,6 +9,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import lecturesRoster from "./lectures-roster";
 import moment from "moment";
+import { Redirect } from "react-router-dom";
+
 
 export interface LectureAdminState {
     loading: boolean,
@@ -26,7 +28,7 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
         super(props);
 
         this.state = { lectures: [], loading: true }
-
+        console.log(props.auth0);
         this.initLectures = this.initLectures.bind(this);
         this.submitForm = this.submitForm.bind(this);
         this.initLectures();
@@ -60,8 +62,8 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
         console.log(lecture);
 
         // rewrite participants if somebody joined while editing
-        var newLecture = await GetLecture(lecture.name + ".json");
-        lecture.registeredParticipans = newLecture.registeredParticipans;
+        // var newLecture = await GetLecture(lecture.name + ".json");
+        //lecture.registeredParticipans = newLecture.registeredParticipans;
 
         await AddLecture(lecture);
         await this.initLectures();
@@ -76,6 +78,7 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
 
 
     render(): JSX.Element {
+
         var textBoxContent = <Tab.Container id="left-tabs-example" defaultActiveKey={"default"}>
             <Row>
                 <Col sm={3}>
@@ -144,13 +147,17 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
 
 
         if (this.state.loading) { textBoxContent = <Spinner animation={"border"}></Spinner> }
+        if (this.props.auth0.isAuthenticated) {
+            return (
+                <div className="textBox" style={{ minHeight: "80%" }}>
+                    <p><b>Seznam lekcí</b></p>
+                    {textBoxContent}
+                </div>
+            )
 
-        return (
-            <div className="textBox" style={{ minHeight: "80%" }}>
-                <p><b>Seznam lekcí</b></p>
-                {textBoxContent}
-            </div>
-        )
+        }
+        return <Redirect to="/" />;
+
     }
 }
 

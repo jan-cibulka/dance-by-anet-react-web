@@ -2,6 +2,7 @@ import { withAuth0 } from "@auth0/auth0-react";
 import { initialAuthState } from "@auth0/auth0-react/dist/auth-state";
 import React from "react"
 import { Button, Col, Nav, Row, Spinner, Tab } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 import { Lecture } from "../model/lecture";
 import { GetAllLectures } from "../util/lectureHelper";
 
@@ -27,6 +28,7 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
 
     async initLectures() {
         var lectures = await GetAllLectures()
+        console.log(lectures)
         this.setState({ lectures: lectures, loading: false })
     }
 
@@ -78,14 +80,16 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
 
 
         if (this.state.loading) { textBoxContent = <Spinner animation={"border"}></Spinner> }
+        if (this.props.auth0.isAuthenticated) {
+            return (
+                <div className="textBox">
 
-        return (
-            <div className="textBox">
-
-                <p><b>Seznam lekcí</b></p>
-                {textBoxContent}
-            </div>
-        )
+                    <p><b>Seznam lekcí</b></p>
+                    {textBoxContent}
+                </div>
+            )
+        }
+        return <Redirect to="/" />;
     }
 }
 
