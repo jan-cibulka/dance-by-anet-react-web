@@ -7,9 +7,7 @@ const containerName = "lectures";
 export async function AddLecture(lecture: Lecture) {
 
   const blobServiceClient = BlobServiceClient.fromConnectionString(blobSasUrl)
-
   const containerClient = blobServiceClient.getContainerClient(containerName);
-
   const content = JSON.stringify(lecture)
   const blobName = lecture.name + ".json";
   const blockBlobClient = containerClient.getBlockBlobClient(blobName);
@@ -18,37 +16,11 @@ export async function AddLecture(lecture: Lecture) {
 
 }
 
-export async function AddContainer() {
-
-  const blobServiceClient = BlobServiceClient.fromConnectionString(blobSasUrl)
-  const containerName = `newcontainer${new Date().getTime()}`;
-  const containerClient = blobServiceClient.getContainerClient(containerName);
-  const createContainerResponse = await containerClient.create();
-  console.log(`Create container ${containerName} successfully`, createContainerResponse.requestId);
-}
-
 export async function DeleteLecture(blobName: string) {
 
   const blobServiceClient = BlobServiceClient.fromConnectionString(blobSasUrl)
   const containerClient = blobServiceClient.getContainerClient(containerName);
   await containerClient.getBlockBlobClient(blobName).deleteIfExists()
-}
-
-export async function GetLecturesList() {
-
-  console.log(blobSasUrl);
-
-  const blobServiceClient = BlobServiceClient.fromConnectionString(blobSasUrl)
-
-  const containerClient = blobServiceClient.getContainerClient(containerName);
-
-
-  for await (const blob of containerClient.listBlobsFlat()) {
-    var blobClient = containerClient.getBlockBlobClient(blob.name);
-
-  }
-
-
 }
 
 export async function GetAllLectures(): Promise<Lecture[]> {

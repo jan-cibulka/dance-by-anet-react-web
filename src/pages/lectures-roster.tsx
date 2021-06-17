@@ -4,7 +4,7 @@ import React from "react"
 import { Button, Col, Nav, Row, Spinner, Tab } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { Lecture } from "../model/lecture";
-import { AddLecture, GetAllLectures, GetLecture, GetLecturesList } from "../util/lectureHelper";
+import { AddLecture, GetAllLectures, GetLecture } from "../util/lectureHelper";
 
 
 export interface LectureRosterState {

@@ -29,9 +29,10 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
         super(props);
 
         this.state = { lectures: [], loading: true }
-        console.log(props.auth0);
+        //console.log(props.auth0);
         this.initLectures = this.initLectures.bind(this);
         this.submitForm = this.submitForm.bind(this);
+        this.handleAddLectureButton = this.handleAddLectureButton.bind(this);
         this.initLectures();
 
     }
@@ -39,11 +40,17 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
     async initLectures() {
         var lectures = await GetAllLectures()
         if (lectures.length == 0) {
-            lectures.push({ name: "Nová lekce", description: "Popis nové lekce", recommendedParticipans: 10, start: new Date().getTime(), registeredParticipans: [] });
-
+            //  lectures.push({ name: "Nová lekce", description: "Popis nové lekce", recommendedParticipans: 10, start: new Date().getTime(), registeredParticipans: [] });
         }
         this.setState({ lectures: lectures, loading: false })
     }
+
+
+    handleAddLectureButton() {
+        this.setState({ lectures: [...this.state.lectures, { name: "Nová lekce", description: "Popis nové lekce", recommendedParticipans: 10, start: new Date().getTime(), registeredParticipans: [] }], loading: false });
+
+    }
+
 
     async submitForm(event: any) {
         event.preventDefault();
@@ -95,12 +102,13 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
                             )
                         })}
                     </Nav>
+                    <Button className="mt-2" variant="success" onClick={this.handleAddLectureButton}>+</Button>
                 </Col>
                 <Col sm={9}>
                     <Tab.Content>
                         <Tab.Pane eventKey={"default"}>
                             Vyberte lekci
-                            </Tab.Pane>
+                        </Tab.Pane>
                         {this.state.lectures.map((lecture, i) => {
                             return (
                                 <Tab.Pane eventKey={lecture.name + i} key={lecture.name + i}>
@@ -135,7 +143,7 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
                                                 })}
                                             </ListGroup>
                                         </Form.Group>
-                                        <Button type="submit" >Přidat nebo přepsat</Button>
+                                        <Button type="submit" className="mx-2" >Přidat nebo přepsat</Button>
                                         <Button variant="danger" onClick={() => {
                                             this.removeLecture(i);
 
@@ -153,7 +161,7 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
         if (this.state.loading) { textBoxContent = <Spinner animation={"border"}></Spinner> }
         if (this.props.auth0.isAuthenticated && isUserAdmin(this.props.auth0.user.email)) {
             return (
-                <div className="textBox" style={{ minHeight: "80%" }}>
+                <div className="textBox" >
                     <p><b>Seznam lekcí</b></p>
                     {textBoxContent}
                 </div>
