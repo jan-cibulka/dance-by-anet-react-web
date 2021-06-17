@@ -1,5 +1,6 @@
 import { Auth0Provider, withAuth0 } from "@auth0/auth0-react";
-import { initialAuthState } from "@auth0/auth0-react/dist/auth-state";
+import { faCoffee, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react"
 import { Button, Col, Nav, Row, Spinner, Tab } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
@@ -110,8 +111,8 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
             return (
                 <div className="textBox">
                     <Row>
-                        <Col md={3}><b>Seznam lekcí</b></Col>
-                        <Col md={3}>asd</Col>
+                        <Col md={4}><b>Seznam lekcí</b></Col>
+                        <Col md={3}><Button onClick={this.initLectures} ><FontAwesomeIcon icon={faSyncAlt} /></Button></Col>
                     </Row>
 
                     {textBoxContent}
