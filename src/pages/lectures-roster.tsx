@@ -4,7 +4,7 @@ import React from "react"
 import { Button, Col, Nav, Row, Spinner, Tab } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { Lecture } from "../model/lecture";
-import { AddLecture, GetAllLectures, GetLecture } from "../util/lectureHelper";
+import { AddLecture, GetAllLectures, GetLecture, GetLecturesList } from "../util/lectureHelper";
 
 
 export interface LectureRosterState {
@@ -59,7 +59,7 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
     render(): JSX.Element {
         
 
-
+    
         var textBoxContent = <Tab.Container id="left-tabs-example" defaultActiveKey={"default"}>
             <Row>
                 <Col sm={3}>
@@ -109,6 +109,7 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
                 <div className="textBox">
 
                     <p><b>Seznam lekcí</b></p>
+                   
                     {textBoxContent}
                 </div>
             )

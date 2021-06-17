@@ -1,13 +1,15 @@
 import { BlobServiceClient } from "@azure/storage-blob";
 import { Lecture } from "../model/lecture";
 
+const blobSasUrl = "SharedAccessSignature=sv=2020-04-08&ss=btqf&srt=sco&st=2021-06-17T12%3A07%3A36Z&se=2023-06-17T17%3A22%3A00Z&sp=rwdxftlacup&sig=VggHWnXVlR1jzrzXnnAp6TXkTC95svF4e2yIoMjE4LY%3D;BlobEndpoint=https://dbanet.blob.core.windows.net/;FileEndpoint=https://dbanet.file.core.windows.net/;QueueEndpoint=https://dbanet.queue.core.windows.net/;TableEndpoint=https://dbanet.table.core.windows.net/;"
+const containerName = "lectures";
+
 export async function AddLecture(lecture: Lecture) {
-  
-  var blobSasUrl = "SharedAccessSignature=sv=2019-12-12&ss=btqf&srt=sco&st=2021-03-16T14%3A41%3A48Z&se=2021-05-17T13%3A41%3A00Z&sp=rwdlacup&sig=4yeIKVXYP7UiRgC4fIM9%2B5tTkHwvOI2QXNEHlaDjtLs%3D;BlobEndpoint=https://dancebyanet.blob.core.windows.net/;FileEndpoint=https://dancebyanet.file.core.windows.net/;QueueEndpoint=https://dancebyanet.queue.core.windows.net/;TableEndpoint=https://dancebyanet.table.core.windows.net/;"
+
   const blobServiceClient = BlobServiceClient.fromConnectionString(blobSasUrl)
 
-  const containerClient = blobServiceClient.getContainerClient("userdata");
-  
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+
   const content = JSON.stringify(lecture)
   const blobName = lecture.name + ".json";
   const blockBlobClient = containerClient.getBlockBlobClient(blobName);
@@ -16,24 +18,50 @@ export async function AddLecture(lecture: Lecture) {
 
 }
 
-export async function DeleteLecture(blobName : string) {
-  var blobSasUrl = "SharedAccessSignature=sv=2019-12-12&ss=btqf&srt=sco&st=2021-03-16T14%3A41%3A48Z&se=2021-05-17T13%3A41%3A00Z&sp=rwdlacup&sig=4yeIKVXYP7UiRgC4fIM9%2B5tTkHwvOI2QXNEHlaDjtLs%3D;BlobEndpoint=https://dancebyanet.blob.core.windows.net/;FileEndpoint=https://dancebyanet.file.core.windows.net/;QueueEndpoint=https://dancebyanet.queue.core.windows.net/;TableEndpoint=https://dancebyanet.table.core.windows.net/;"
+export async function AddContainer() {
+
   const blobServiceClient = BlobServiceClient.fromConnectionString(blobSasUrl)
-  const containerClient = blobServiceClient.getContainerClient("userdata");
+  const containerName = `newcontainer${new Date().getTime()}`;
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+  const createContainerResponse = await containerClient.create();
+  console.log(`Create container ${containerName} successfully`, createContainerResponse.requestId);
+}
+
+export async function DeleteLecture(blobName: string) {
+
+  const blobServiceClient = BlobServiceClient.fromConnectionString(blobSasUrl)
+  const containerClient = blobServiceClient.getContainerClient(containerName);
   await containerClient.getBlockBlobClient(blobName).deleteIfExists()
 }
 
-export async function GetAllLectures(): Promise<Lecture[]> {
-  var blobSasUrl = "SharedAccessSignature=sv=2019-12-12&ss=btqf&srt=sco&st=2021-03-16T14%3A41%3A48Z&se=2021-05-17T13%3A41%3A00Z&sp=rwdlacup&sig=4yeIKVXYP7UiRgC4fIM9%2B5tTkHwvOI2QXNEHlaDjtLs%3D;BlobEndpoint=https://dancebyanet.blob.core.windows.net/;FileEndpoint=https://dancebyanet.file.core.windows.net/;QueueEndpoint=https://dancebyanet.queue.core.windows.net/;TableEndpoint=https://dancebyanet.table.core.windows.net/;"
+export async function GetLecturesList() {
+
+  console.log(blobSasUrl);
+
   const blobServiceClient = BlobServiceClient.fromConnectionString(blobSasUrl)
 
-  const containerClient = blobServiceClient.getContainerClient("userdata");
+  const containerClient = blobServiceClient.getContainerClient(containerName);
 
-  var lectures :Lecture[] = [];
+
   for await (const blob of containerClient.listBlobsFlat()) {
     var blobClient = containerClient.getBlockBlobClient(blob.name);
-    var downloadBlobResponse= await blobClient.download();
-    
+
+  }
+
+
+}
+
+export async function GetAllLectures(): Promise<Lecture[]> {
+
+  const blobServiceClient = BlobServiceClient.fromConnectionString(blobSasUrl)
+
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+
+  var lectures: Lecture[] = [];
+  for await (const blob of containerClient.listBlobsFlat()) {
+    var blobClient = containerClient.getBlockBlobClient(blob.name);
+    var downloadBlobResponse = await blobClient.download();
+
     const downloaded = await blobToString(await downloadBlobResponse.blobBody);
     var parsedLecture = JSON.parse(downloaded);
 
@@ -43,13 +71,14 @@ export async function GetAllLectures(): Promise<Lecture[]> {
 }
 
 export async function GetLecture(blobName: string): Promise<Lecture> {
-  try{  var blobSasUrl = "SharedAccessSignature=sv=2019-12-12&ss=btqf&srt=sco&st=2021-03-16T14%3A41%3A48Z&se=2021-05-17T13%3A41%3A00Z&sp=rwdlacup&sig=4yeIKVXYP7UiRgC4fIM9%2B5tTkHwvOI2QXNEHlaDjtLs%3D;BlobEndpoint=https://dancebyanet.blob.core.windows.net/;FileEndpoint=https://dancebyanet.file.core.windows.net/;QueueEndpoint=https://dancebyanet.queue.core.windows.net/;TableEndpoint=https://dancebyanet.table.core.windows.net/;"
-  const blobServiceClient = BlobServiceClient.fromConnectionString(blobSasUrl)
-  const containerClient = blobServiceClient.getContainerClient("userdata");
-  var downloadBlobResponse= await containerClient.getBlockBlobClient(blobName).download();
-  const downloaded = await blobToString(await downloadBlobResponse.blobBody);
-  var parsedLecture = JSON.parse(downloaded);}
-  catch(e){
+  try {
+    const blobServiceClient = BlobServiceClient.fromConnectionString(blobSasUrl)
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    var downloadBlobResponse = await containerClient.getBlockBlobClient(blobName).download();
+    const downloaded = await blobToString(await downloadBlobResponse.blobBody);
+    var parsedLecture = JSON.parse(downloaded);
+  }
+  catch (e) {
 
     console.log(e);
     var parsedLecture = null;
@@ -58,10 +87,10 @@ export async function GetLecture(blobName: string): Promise<Lecture> {
   return parsedLecture;
 }
 
-async function blobToString(blob: any) : Promise<any> {
+async function blobToString(blob: any): Promise<any> {
   const fileReader = new FileReader();
   return new Promise((resolve, reject) => {
-    fileReader.onloadend = (ev :ProgressEvent<FileReader>)  => {
+    fileReader.onloadend = (ev: ProgressEvent<FileReader>) => {
       resolve(ev.target!.result);
     };
     fileReader.onerror = reject;
