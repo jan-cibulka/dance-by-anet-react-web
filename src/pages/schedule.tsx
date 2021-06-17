@@ -1,8 +1,20 @@
 import React from "react"
-import { Table } from "react-bootstrap"
+import { OverlayTrigger, Popover, Table } from "react-bootstrap"
 
 export class Schedule extends React.Component {
+
+
+
   render(): JSX.Element {
+    var popover =
+      <Popover id="popover-basic">
+        <Popover.Title as="h3">Popover right</Popover.Title>
+        <Popover.Content>
+          And here's some <strong>amazing</strong> content. It's very engaging.
+          right?
+        </Popover.Content>
+      </Popover>
+
     return (
 
       <div className="textBox">
@@ -20,7 +32,10 @@ export class Schedule extends React.Component {
               <th>17:00</th>
               <th>18:00</th>
               <th>19:00</th>
+
               <th>20:00</th>
+
+
             </tr>
           </thead>
           <tbody>
@@ -31,7 +46,11 @@ export class Schedule extends React.Component {
               <td></td>
               <td></td>
               <td></td>
-              <td className={"schedule-highlight"}>Ladies Dance</td>
+
+              <OverlayTrigger trigger="hover" placement="top" overlay={popover}>
+              
+                <td className={"schedule-highlight"}>  <b>Ladies Dance</b></td>
+              </OverlayTrigger>
               <td></td>
               <td></td>
             </tr>
@@ -53,7 +72,7 @@ export class Schedule extends React.Component {
               <td></td>
               <td></td>
               <td></td>
-              <td className={"schedule-highlight"}>Charge Dance</td>
+              <td className={"schedule-highlight"}><b>Charge Dance</b></td>
               <td></td>
               <td></td>
             </tr>

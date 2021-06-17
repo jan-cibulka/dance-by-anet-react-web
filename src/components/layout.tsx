@@ -48,8 +48,8 @@ export class Layout extends React.Component<{}, LayoutState> {
           @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=block');
           </style>
 
-        <Header siteTitle={`DanceByAnet`} />
-        <CustomNavbar />
+       
+        
 
         <div
           className="content-wrapper"
@@ -58,7 +58,8 @@ export class Layout extends React.Component<{}, LayoutState> {
             backgroundImage: `url(${this.state.shouldBeWideBackground ? backgroundImageWide : backgroundImageTall})`,
 
           }}
-          >
+          > <Header siteTitle={`DanceByAnet`}  />
+            <CustomNavbar />
           {this.props.children}
         </div>
 

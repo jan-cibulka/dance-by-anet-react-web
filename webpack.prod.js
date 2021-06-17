@@ -29,7 +29,7 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(jpg|png)$/,
+        test: /\.(jpg|png|gif)$/,
         use: {
           loader: "url-loader",
         },
@@ -40,7 +40,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    path: `${__dirname}/public`,
+    path: `npm${__dirname}/public`,
     publicPath: '/',
     filename: 'app.min.js',
   },
