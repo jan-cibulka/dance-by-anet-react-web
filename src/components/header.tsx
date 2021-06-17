@@ -20,10 +20,9 @@ export class Header extends React.Component<HeaderProps, {}> {
 
   render(): JSX.Element {
     return (
-      <header
-      >
+      <header style={{position:"relative"}}>
 
-        <h1 style={{ margin: 0 }} className="headerTitle">
+        <h1 style={{ margin: 0, position: "relative" }} className="headerTitle">
           <Link
             to="/"
             style={{
@@ -36,14 +35,12 @@ export class Header extends React.Component<HeaderProps, {}> {
           >
             {this.props.siteTitle}
           </Link>
-
-
-          <div className={"fb-ig-icons"}>
-            <a href="https://instagram.com/dancebyanet?igshid=o4v428nwwkqf" className="m-2" ><img src={gifFacebook} width={30} /></a>
-            <a href="https://facebook.com" className="m-2" ><img src={gifInstagram} width={30} /></a>
-          </div>
-
         </h1>
+
+        <div className={"fb-ig-icons"}>
+          <a href="https://instagram.com/dancebyanet?igshid=o4v428nwwkqf" className="m-2" ><img src={gifFacebook} width={30} /></a>
+          <a href="https://facebook.com" className="m-2" ><img src={gifInstagram} width={30} /></a>
+        </div>
       </header>
     )
   }

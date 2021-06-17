@@ -56,6 +56,8 @@ export class Layout extends React.Component<{}, LayoutState> {
           style={{
             backgroundColor: "gray",
             backgroundImage: `url(${this.state.shouldBeWideBackground ? backgroundImageWide : backgroundImageTall})`,
+            minHeight:800,
+            overflow:"auto"
 
           }}
           > <Header siteTitle={`DanceByAnet`}  />
