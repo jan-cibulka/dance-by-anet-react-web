@@ -126,7 +126,7 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
                                             <Form.Control type="number" placeholder="" defaultValue={lecture.recommendedParticipans} />
                                         </Form.Group>
                                         <Form.Group controlId="formLectureStart">
-                                            <Form.Label>Začátek lekce</Form.Label>
+                                            <Form.Label>Začátek lekce</Form.Label><br />
                                             <Form.Control dateFormat={"dd.MM.yyyy HH:mm"} showTimeSelect timeIntervals={5} timeCaption="Od" disabled={false} timeFormat={"HH:mm "} as={DatePicker} selected={lecture.start ? new Date(lecture.start) : new Date()} onChange={(evt: any) => {
                                                 var newDate = new Date(evt).getTime();
                                                 var newLectures = [...this.state.lectures]
