@@ -159,7 +159,7 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
 
 
         if (this.state.loading) { textBoxContent = <Spinner animation={"border"}></Spinner> }
-        if (this.props.auth0.isAuthenticated && isUserAdmin(this.props.auth0.user.email)) {
+        if (this.props.auth0.isAuthenticated && isUserAdmin(this.props.auth0.user)) {
             return (
                 <div className="textBox" >
                     <p><b>Seznam lekcí</b></p>
