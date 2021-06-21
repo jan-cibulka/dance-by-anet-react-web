@@ -5,8 +5,8 @@ import {
   Link
 
 } from 'react-router-dom';
-//import gifFacebook from '../images/facebook.gif';
-//import gifInstagram from '../images/instagram.gif';
+import gifFacebook from '../images/facebook.gif';
+import gifInstagram from '../images/instagram.gif';
 
 
 export class Header extends React.Component<HeaderProps, {}> {
@@ -39,8 +39,8 @@ export class Header extends React.Component<HeaderProps, {}> {
 
 
           <div className={"fb-ig-icons"}>
-            <a href="https://instagram.com/dancebyanet?igshid=o4v428nwwkqf" className="m-2" ><img src={""} width={30} /></a>
-            <a href="https://facebook.com" className="m-2" ><img src={""} width={30} /></a>
+            <a href="https://instagram.com/dancebyanet?igshid=o4v428nwwkqf" className="m-2" ><img src={gifFacebook} width={30} /></a>
+            <a href="https://facebook.com" className="m-2" ><img src={gifInstagram} width={30} /></a>
           </div>
 
         </h1>

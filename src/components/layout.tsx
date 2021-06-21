@@ -9,7 +9,7 @@ import PropTypes from "prop-types"
 
 
 import Header from "./header"
-import {CustomNavbar} from "./navbar";
+import { CustomNavbar } from "./navbar";
 
 
 
@@ -21,7 +21,7 @@ export interface LayoutProps {
 }
 
 export interface LayoutState {
-   shouldBeWideBackground: boolean;
+  shouldBeWideBackground: boolean;
 }
 
 
@@ -34,7 +34,7 @@ export class Layout extends React.Component<{}, LayoutState> {
 
     this.state = { shouldBeWideBackground: true };
     //console.log(this.state);
-     this.updateBackgroundImage = this.updateBackgroundImage.bind(this);
+    this.updateBackgroundImage = this.updateBackgroundImage.bind(this);
   }
 
   render(): JSX.Element {
@@ -46,10 +46,9 @@ export class Layout extends React.Component<{}, LayoutState> {
         <link rel="canonical" href="http://mysite.com/example" />
         <style>
           @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=block');
-          </style>
+        </style>
 
-        <Header siteTitle={`DanceByAnet`} />
-        <CustomNavbar />
+
 
         <div
           className="content-wrapper"
@@ -58,7 +57,9 @@ export class Layout extends React.Component<{}, LayoutState> {
             backgroundImage: `url(${this.state.shouldBeWideBackground ? backgroundImageWide : backgroundImageTall})`,
 
           }}
-          >
+        >
+          <Header siteTitle={`DanceByAnet`} />
+          <CustomNavbar />
           {this.props.children}
         </div>
 
