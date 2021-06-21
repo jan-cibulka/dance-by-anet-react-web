@@ -1,5 +1,6 @@
 import { Auth0Provider, withAuth0 } from "@auth0/auth0-react";
-import { initialAuthState } from "@auth0/auth0-react/dist/auth-state";
+import { faCoffee, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react"
 import { Button, Col, Nav, Row, Spinner, Tab } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
@@ -44,7 +45,7 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
             targetLecture.registeredParticipans = newLecture.registeredParticipans;
         }
 
-        if(!targetLecture.registeredParticipans.some(x=> x==this.props.auth0.user.email)){
+        if (!targetLecture.registeredParticipans.some(x => x == this.props.auth0.user.email)) {
             targetLecture.registeredParticipans.push(this.props.auth0.user.email)
         }
 
@@ -57,9 +58,9 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
 
 
     render(): JSX.Element {
-        
 
-    
+
+
         var textBoxContent = <Tab.Container id="left-tabs-example" defaultActiveKey={"default"}>
             <Row>
                 <Col sm={3}>
@@ -77,10 +78,10 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
                     <Tab.Content>
                         <Tab.Pane eventKey={"default"}>
                             Vyberte lekci
-                            </Tab.Pane>
+                        </Tab.Pane>
                         {this.state.lectures.map((lecture, i) => {
 
-                                var amIInThisLecture = lecture.registeredParticipans.some(x=> x == this.props.auth0.user.email)
+                            var amIInThisLecture = lecture.registeredParticipans.some(x => x == this.props.auth0.user.email)
 
                             return (
                                 <Tab.Pane eventKey={lecture.name + i} key={lecture.name + i}>
@@ -92,8 +93,10 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
                                     <br />
                                     Registrovaných účastníků: {lecture.registeredParticipans.length}
                                     <br />
-                                    
-                                    <Button onClick={() => { this.addToLecture(i) }}>Zapsat se</Button>
+                                    {
+                                        amIInThisLecture ? <Button disabled variant="success" >Již rezervováno!</Button> : <Button onClick={() => { this.addToLecture(i) }}>Zapsat se!</Button>
+                                    }
+
                                 </Tab.Pane>
                             )
                         })}
@@ -107,9 +110,11 @@ export class LecturesRoster extends React.Component<LectureRosterProps, LectureR
         if (this.props.auth0.isAuthenticated) {
             return (
                 <div className="textBox">
+                    <Row>
+                        <Col md={4}><b>Seznam lekcí</b></Col>
+                        <Col md={3}><Button onClick={this.initLectures} ><FontAwesomeIcon icon={faSyncAlt} /></Button></Col>
+                    </Row>
 
-                    <p><b>Seznam lekcí</b></p>
-                   
                     {textBoxContent}
                 </div>
             )
