@@ -6,7 +6,7 @@ import { isUserAdmin } from "../util/userWhitelist";
 import AuthenticationButton from "./authentication-button";
 export const CustomNavbar = () => {
 
-  const { isAuthenticated, user, logout } = useAuth0();
+  const { isAuthenticated, user , logout } = useAuth0();
   console.log(user);
   return (
     
@@ -25,7 +25,7 @@ export const CustomNavbar = () => {
               <Link className="nav-link" to="/account">Účet</Link>
               <Link className="nav-link" to="/lecturesroster">Lekce</Link>
              {
-                isUserAdmin(user?.email) && <Link className="nav-link" to="/lecturesadmin">Admin</Link> 
+                isUserAdmin(user) && <Link className="nav-link" to="/lecturesadmin">Admin</Link> 
              }
               
             </React.Fragment > :
