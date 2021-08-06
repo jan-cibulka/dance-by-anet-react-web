@@ -1,13 +1,10 @@
-import { Auth0Provider, withAuth0 } from "@auth0/auth0-react";
-import { initialAuthState } from "@auth0/auth0-react/dist/auth-state";
+import { withAuth0 } from "@auth0/auth0-react";
 import React from "react"
 import { Button, Col, Form, ListGroup, Nav, Row, Spinner, Tab } from "react-bootstrap";
 import { Lecture } from "../model/lecture";
 import { GetAllLectures, AddLecture, DeleteLecture, GetLecture } from "../util/lectureHelper";
 import DatePicker from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
-import lecturesRoster from "./lectures-roster";
 import moment from "moment";
 import { Redirect } from "react-router-dom";
 import { isUserAdmin } from "../util/userWhitelist";
@@ -67,7 +64,7 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
             start: moment(event.target[3].value, "DD.MM.YYYY HH:mm").toDate().getTime()
         };
 
-        console.log(lecture);
+        //console.log(lecture);
 
         // rewrite participants if somebody joined while editing
         var newLecture = await GetLecture(lecture.name + ".json");
@@ -166,7 +163,6 @@ export class LecturesAdmin extends React.Component<LectureAdminProps, LectureAdm
                     {textBoxContent}
                 </div>
             )
-
         }
         return <Redirect to="/" />;
 

@@ -11,10 +11,6 @@ import Account from '../pages/account';
 import LecturesRoster from '../pages/lectures-roster';
 import LecturesAdmin from '../pages/lectures-admin';
 
-interface AppProps {
-
-}
-
 export const App = () => {
   const { isLoading } = useAuth0();
 
