@@ -4,7 +4,6 @@ import React from "react"
 const Contact = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
-  
   return <div className="textBox">
     Aneta Mašátová
 <br />

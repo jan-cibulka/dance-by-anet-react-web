@@ -9,46 +9,34 @@ import gifFacebook from '../images/facebook.gif';
 import gifInstagram from '../images/instagram.gif';
 
 
-export class Header extends React.Component<HeaderProps, {}> {
-
-  constructor(props: HeaderProps) {
-    super(props);
-
-    this.state = {
-    };
-  }
-
-  render(): JSX.Element {
-    return (
-      <header style={{position:"relative"}}>
-
-        <h1 style={{ margin: 0, position: "relative" }} className="headerTitle">
-          <Link
-            to="/"
-            style={{
-              color: `black `,
-              fontFamily: 'Quicksand',
-              textDecoration: "none",
-              fontWeight: 'bold',
-              textShadow: `2px 2px rgb(255 0 102)`
-            }}
-          >
-            {this.props.siteTitle}
-          </Link>
-        </h1>
-
-        <div className={"fb-ig-icons"}>
-          <a href="https://instagram.com/dancebyanet?igshid=o4v428nwwkqf" className="m-2" ><img src={gifFacebook} width={30} /></a>
-          <a href="https://facebook.com" className="m-2" ><img src={gifInstagram} width={30} /></a>
-        </div>
-      </header>
-    )
-  }
-}
+const Header = (props : {siteTitle: string}) => {
 
 
-export interface HeaderProps {
-  siteTitle: string
+  return (
+
+    <header style={{ position: "relative" }}>
+
+      <h1 style={{ margin: 0, position: "relative" }} className="headerTitle">
+        <Link
+          to="/"
+          style={{
+            color: `black `,
+            fontFamily: 'Quicksand',
+            textDecoration: "none",
+            fontWeight: 'bold',
+            textShadow: `2px 2px rgb(255 0 102)`
+          }}
+        >
+          {props.siteTitle}
+        </Link>
+      </h1>
+
+      <div className={"fb-ig-icons"}>
+        <a href="https://instagram.com/dancebyanet?igshid=o4v428nwwkqf" className="m-2" ><img src={gifFacebook} width={30} /></a>
+        <a href="https://facebook.com" className="m-2" ><img src={gifInstagram} width={30} /></a>
+      </div>
+    </header>
+  )
 }
 
 export default Header;

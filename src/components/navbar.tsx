@@ -1,15 +1,17 @@
-import { useAuth0, withAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import React from "react"
-import { Button, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { isUserAdmin } from "../util/userWhitelist";
 import AuthenticationButton from "./authentication-button";
+
+
 export const CustomNavbar = () => {
 
-  const { isAuthenticated, user , logout } = useAuth0();
-  console.log(user);
+  const { isAuthenticated, user, logout } = useAuth0();
+  //console.log(user);
   return (
-    
+
     <Navbar collapseOnSelect bg="light" expand="lg" >
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse>
@@ -24,10 +26,10 @@ export const CustomNavbar = () => {
               <Link className="nav-link" onClick={() => logout({ returnTo: window.location.origin })} to="/">Odhlášení</Link>
               <Link className="nav-link" to="/account">Účet</Link>
               <Link className="nav-link" to="/lecturesroster">Lekce</Link>
-             {
-                isUserAdmin(user) && <Link className="nav-link" to="/lecturesadmin">Admin</Link> 
-             }
-              
+              {
+                isUserAdmin(user) && <Link className="nav-link" to="/lecturesadmin">Admin</Link>
+              }
+
             </React.Fragment > :
             <React.Fragment>
               <AuthenticationButton />

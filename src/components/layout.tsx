@@ -1,17 +1,7 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
 import React from "react"
-import PropTypes from "prop-types"
-
 
 import Header from "./header"
 import { CustomNavbar } from "./navbar";
-
-
 
 import backgroundImageWide from "../images/pozadi2_low.jpg";
 import backgroundImageTall from "../images/pozadi3.jpg";
@@ -60,7 +50,7 @@ export class Layout extends React.Component<{}, LayoutState> {
 
           }}
         >
-          <Header siteTitle={`DanceByAnet`} />
+          <Header siteTitle="DanceByAnet" />
           <CustomNavbar />
           {this.props.children}
         </div>
